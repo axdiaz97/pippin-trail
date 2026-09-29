@@ -6,10 +6,10 @@
 <title>Pippin's Foraging Trail: EPPP Social and Multicultural</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Nunito:wght@400;600;700&display=swap">
 <style>
-:root{--bg:#e9efdc;--card:#fffbee;--ink:#4b3a34;--ink2:#7b6a5f;--sage:#8fa97b;--line:#cdd6b8;--cap:#c9576a;--btn:#5f7d52;--btn-ink:#fffbee;--good:#dcebc8;--good-ink:#36592d;--bad:#f8dde0;--bad-ink:#8a3141;--butter:#f2d57e;--dot:rgba(75,58,52,.09);--rose:#e7a4ae;
+:root{--bg:#e9efdc;--card:rgba(255,251,238,.9);--sil:#6b4f37;--sil-o:.2;--lf1:#c8622a;--lf2:#d99a2b;--lf3:#a8422f;--lo:.42;--ink:#4b3a34;--ink2:#7b6a5f;--sage:#8fa97b;--line:#cdd6b8;--cap:#c9576a;--btn:#5f7d52;--btn-ink:#fffbee;--good:#dcebc8;--good-ink:#36592d;--bad:#f8dde0;--bad-ink:#8a3141;--butter:#f2d57e;--dot:rgba(75,58,52,.09);--rose:#e7a4ae;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1f261d;--card:#2a3327;--ink:#eef0dc;--ink2:#b5bea3;--sage:#8fae86;--line:#445040;--cap:#d9707f;--btn:#9dbd8f;--btn-ink:#1f261d;--good:#2f4a2a;--good-ink:#d2eac3;--bad:#4b2a30;--bad-ink:#f5c9d0;--butter:#d9bd68;--dot:rgba(238,240,220,.06);--rose:#b96f7b}}
-:root[data-theme="dark"]{--bg:#1f261d;--card:#2a3327;--ink:#eef0dc;--ink2:#b5bea3;--sage:#8fae86;--line:#445040;--cap:#d9707f;--btn:#9dbd8f;--btn-ink:#1f261d;--good:#2f4a2a;--good-ink:#d2eac3;--bad:#4b2a30;--bad-ink:#f5c9d0;--butter:#d9bd68;--dot:rgba(238,240,220,.06);--rose:#b96f7b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1f261d;--card:rgba(42,51,39,.9);--sil:#0b1009;--sil-o:.7;--lf1:#d9793d;--lf2:#e0aa45;--lf3:#c25a44;--lo:.32;--ink:#eef0dc;--ink2:#b5bea3;--sage:#8fae86;--line:#445040;--cap:#d9707f;--btn:#9dbd8f;--btn-ink:#1f261d;--good:#2f4a2a;--good-ink:#d2eac3;--bad:#4b2a30;--bad-ink:#f5c9d0;--butter:#d9bd68;--dot:rgba(238,240,220,.06);--rose:#b96f7b}}
+:root[data-theme="dark"]{--bg:#1f261d;--card:rgba(42,51,39,.9);--sil:#0b1009;--sil-o:.7;--lf1:#d9793d;--lf2:#e0aa45;--lf3:#c25a44;--lo:.32;--ink:#eef0dc;--ink2:#b5bea3;--sage:#8fae86;--line:#445040;--cap:#d9707f;--btn:#9dbd8f;--btn-ink:#1f261d;--good:#2f4a2a;--good-ink:#d2eac3;--bad:#4b2a30;--bad-ink:#f5c9d0;--butter:#d9bd68;--dot:rgba(238,240,220,.06);--rose:#b96f7b}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background-color:var(--bg);background-image:radial-gradient(circle at 1px 1px,var(--dot) 1.2px,transparent 0);background-size:24px 24px;color:var(--ink);font-family:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:16px;line-height:1.5}
@@ -137,9 +137,41 @@ button{font-family:inherit}
 .facts b{display:block;font-size:12px;color:var(--ink2)}
 .hype{margin:8px 0 0;font-size:13.5px;color:var(--ink2)}
 .gcard .gbtn{padding:6px 14px;font-size:13px}
+
+.wrap{position:relative;z-index:1}
+#scene{position:fixed;left:0;bottom:0;width:100%;pointer-events:none;z-index:0;fill:var(--sil);stroke:none;opacity:var(--sil-o)}
+.ln{fill:none;stroke:var(--sil);stroke-width:2;stroke-linecap:round}
+.sway{transform-box:fill-box;transform-origin:50% 100%;animation:sway 7s ease-in-out infinite}
+.breathe{transform-box:fill-box;transform-origin:50% 100%;animation:breathe 4.5s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.4deg)}}
+@keyframes breathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.03)}}
+#leaves{position:fixed;left:0;top:0;right:0;bottom:0;pointer-events:none;overflow:hidden;z-index:3}
+.lf{position:absolute;top:0;opacity:var(--lo);animation:fall var(--d) linear var(--dl) infinite;will-change:transform}
+.lf svg{display:block;fill:var(--lc);animation:flutter var(--fl) ease-in-out infinite alternate;transform-origin:50% 30%}
+@keyframes fall{0%{transform:translate3d(0,-10vh,0)}100%{transform:translate3d(var(--dx),110vh,0)}}
+@keyframes flutter{0%{transform:rotate(-35deg) rotateY(0deg)}50%{transform:rotate(15deg) rotateY(70deg)}100%{transform:rotate(45deg) rotateY(0deg)}}
+#birds{position:fixed;top:11vh;left:0;width:70px;height:26px;pointer-events:none;z-index:0;fill:var(--sil);opacity:var(--sil-o);animation:glide 75s linear infinite}
+@keyframes glide{from{transform:translateX(-100px)}to{transform:translateX(calc(100vw + 100px))}}
+.bd{transform-box:fill-box;transform-origin:50% 70%;animation:flap 1.3s ease-in-out infinite}
+@keyframes flap{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.5)}}
+@media (prefers-reduced-motion:reduce){.lf,#birds{display:none}.sway,.breathe,.bd{animation:none}}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="leaf" viewBox="0 0 100 100"><path d="M50 4 L58 20 L68 14 L66 32 L86 26 L78 44 L96 50 L76 58 L82 74 L62 70 L58 82 L54 92 L54 100 L46 100 L46 92 L42 82 L38 70 L18 74 L24 58 L4 50 L22 44 L14 26 L34 32 L32 14 L42 20Z"/></symbol>
+<symbol id="pine" viewBox="0 0 60 100"><path d="M30 0 L44 26 L37 26 L50 50 L41 50 L56 78 L34 78 L34 100 L26 100 L26 78 L4 78 L19 50 L10 50 L23 26 L16 26Z"/></symbol>
+<symbol id="deer" viewBox="0 -8 100 92"><ellipse cx="46" cy="42" rx="24" ry="11"/><path d="M28 48 L31 84 L34 84 L36 50Z M40 50 L42 84 L45 84 L48 50Z M56 50 L58 84 L61 84 L64 50Z M66 46 L70 84 L73 84 L72 44Z"/><path d="M64 38 L74 14 L82 16 L74 44Z"/><path d="M74 12 L92 20 L90 25 L80 24 L74 20Z"/><path d="M76 12 L74 4 L82 10Z"/><path d="M22 36 L14 30 L24 44Z"/><path class="ln" d="M79 10 L78 -1 M78 -1 L73 -4 M78 3 L85 -2 M82 12 L87 5"/></symbol>
+<symbol id="fox" viewBox="0 0 100 56"><ellipse cx="46" cy="34" rx="22" ry="9"/><path d="M30 40 L30 56 L34 56 L36 42Z M40 42 L41 56 L45 56 L47 42Z M54 42 L56 56 L60 56 L60 40Z M62 38 L66 56 L70 56 L68 36Z"/><path d="M62 30 L70 22 L72 12 L77 22 L80 22 L83 12 L86 24 L99 33 L86 37 L70 38Z"/><path d="M26 32 Q4 24 2 44 Q10 52 22 43 Q24 39 28 39Z"/></symbol>
+<symbol id="rabbit" viewBox="0 0 60 64"><ellipse cx="28" cy="47" rx="18" ry="16"/><circle cx="42" cy="27" r="10"/><path d="M39 19 Q35 -2 42 1 Q48 5 46 20Z M46 19 Q50 0 56 5 Q58 9 52 21Z"/><circle cx="9" cy="51" r="5"/></symbol>
+<symbol id="squirrel" viewBox="0 0 70 60"><ellipse cx="34" cy="40" rx="11" ry="15" transform="rotate(-10 34 40)"/><circle cx="44" cy="22" r="8"/><path d="M43 16 L42 8 L49 14Z"/><path d="M26 52 Q4 54 8 26 Q12 6 30 10 Q18 20 22 34 Q26 42 34 42Z"/><path d="M30 52 L30 60 L42 60 L42 52Z"/></symbol>
+<symbol id="hedgehog" viewBox="0 0 70 36"><path d="M2 34 L4 26 L0 22 L8 20 L6 12 L14 14 L16 6 L24 10 L30 2 L36 8 L44 4 L46 12 L54 10 L54 18 L58 22 L52 34Z"/><path d="M50 24 L69 31 L66 35 L50 35Z"/></symbol>
+<symbol id="owl" viewBox="0 0 60 130"><path d="M26 56 L25 130 L36 130 L34 56Z"/><path d="M34 74 L54 62 L56 65 L36 80Z M26 90 L8 80 L10 77 L27 84Z"/><ellipse cx="30" cy="42" rx="11" ry="16"/><circle cx="30" cy="24" r="10"/><path d="M21 18 L22 8 L28 16Z M39 18 L38 8 L32 16Z"/></symbol>
+<symbol id="bird" viewBox="0 0 24 10"><path d="M0 6 Q6 -1 12 6 Q18 -1 24 6 Q18 3 12 8 Q6 3 0 6Z"/></symbol>
+</defs></svg>
+<div id="birds" aria-hidden="true"><svg viewBox="0 0 70 26" width="70" height="26"><g class="bd"><use href="#bird" x="0" y="8" width="20" height="8"/></g><g class="bd" style="animation-delay:-.4s"><use href="#bird" x="26" y="0" width="22" height="9"/></g><g class="bd" style="animation-delay:-.8s"><use href="#bird" x="46" y="14" width="18" height="7"/></g></svg></div>
+<svg id="scene" aria-hidden="true" focusable="false"></svg>
+<div id="leaves" aria-hidden="true"></div>
 <div class="wrap" id="app"></div>
 <script>
 var CAPS=["#e3cfa8","#f0a94b","#a97c5c","#cfc8bb","#8f6240","#c0703c","#f4ecd6","#a4735a","#d3453f","#f6f0e2"];
@@ -561,7 +593,34 @@ document.addEventListener("click",function(e){
   else{try{localStorage.removeItem(KEY)}catch(err){}resetArmed=false;load();setView("home")}
  }
 });
-load();render();
+
+var _rs=1;function rnd(){_rs=(_rs*16807)%2147483647;return _rs/2147483647}
+function buildScene(){
+ var W=window.innerWidth||390,H=Math.round(Math.min(300,Math.max(180,(window.innerHeight||700)*.32))),k=W>900?1.3:1,s="",x,hh,w,i;
+ _rs=7;
+ var svg=document.getElementById("scene");svg.setAttribute("viewBox","0 0 "+W+" "+H);svg.setAttribute("width",W);svg.setAttribute("height",H);
+ s+='<g opacity=".5"><path d="M0 '+H+' L0 '+(H-72)+' Q'+(W*.2)+' '+(H-108)+' '+(W*.45)+' '+(H-72)+' T'+W+' '+(H-82)+' L'+W+' '+H+'Z"/>';
+ for(x=-10;x<W+20;x+=30+rnd()*26){hh=(64+rnd()*50)*k;w=hh*.6;s+='<g class="sway" style="animation-delay:-'+(rnd()*7).toFixed(1)+'s"><use href="#pine" x="'+(x-w/2).toFixed(0)+'" y="'+(H-56-hh).toFixed(0)+'" width="'+w.toFixed(0)+'" height="'+hh.toFixed(0)+'"/></g>'}
+ s+='</g>';
+ var A=W<520?[["deer",.17],["fox",.52],["owl",.87]]:W<900?[["deer",.1],["hedgehog",.3],["fox",.5],["rabbit",.68],["owl",.9]]:[["deer",.07],["hedgehog",.2],["fox",.35],["squirrel",.5],["rabbit",.63],["owl",.78],["deer",.93]];
+ var SZ={deer:[96,88],fox:[84,47],rabbit:[38,41],squirrel:[46,39],hedgehog:[44,23],owl:[48,104]},ax=A.map(function(a){return W*a[1]});
+ for(x=8;x<W;x+=58+rnd()*52){
+  var near=false;for(i=0;i<ax.length;i++)if(Math.abs(ax[i]-x)<52*k)near=true;
+  if(near)continue;
+  hh=(118+rnd()*70)*k;w=hh*.6;s+='<g class="sway" style="animation-delay:-'+(rnd()*7).toFixed(1)+'s"><use href="#pine" x="'+(x-w/2).toFixed(0)+'" y="'+(H-34-hh).toFixed(0)+'" width="'+w.toFixed(0)+'" height="'+hh.toFixed(0)+'"/></g>'}
+ s+='<path d="M0 '+H+' L0 '+(H-38)+' Q'+(W*.25)+' '+(H-48)+' '+(W*.5)+' '+(H-38)+' T'+W+' '+(H-38)+' L'+W+' '+H+'Z"/>';
+ A.forEach(function(a,j){var z=SZ[a[0]],aw=z[0]*k,ah=z[1]*k,base=a[0]==="owl"?H-30:H-33;s+='<g class="breathe" style="animation-delay:-'+(j*1.3).toFixed(1)+'s"><use href="#'+a[0]+'" x="'+(W*a[1]-aw/2).toFixed(0)+'" y="'+(base-ah).toFixed(0)+'" width="'+aw.toFixed(0)+'" height="'+ah.toFixed(0)+'"/></g>'});
+ svg.innerHTML=s;
+}
+function buildLeaves(){
+ var L=document.getElementById("leaves"),cols=["--lf1","--lf2","--lf3"],s="";
+ for(var i=0;i<14;i++){var sz=14+Math.round(Math.random()*18),d=16+Math.random()*16;
+  s+='<div class="lf" style="left:'+(Math.random()*100).toFixed(1)+'%;width:'+sz+'px;height:'+sz+'px;--d:'+d.toFixed(1)+'s;--dl:-'+(Math.random()*d).toFixed(1)+'s;--dx:'+Math.round(Math.random()*160-80)+'px;--fl:'+(3+Math.random()*3).toFixed(1)+'s;--lc:var('+cols[i%3]+')"><svg viewBox="0 0 100 100" width="100%" height="100%"><use href="#leaf"/></svg></div>'}
+ L.innerHTML=s;
+}
+var _lw=0;
+window.addEventListener("resize",function(){var w=window.innerWidth;if(Math.abs(w-_lw)>40){_lw=w;buildScene()}});
+load();render();_lw=window.innerWidth;buildScene();buildLeaves();
 </script>
 </body>
 </html>
