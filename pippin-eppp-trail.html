@@ -129,9 +129,10 @@ button{font-family:inherit}
 
 .mcard{display:flex;gap:12px;align-items:center;margin-top:12px}
 .mcard .msil{flex:none;width:88px;height:88px}
-.sil{display:inline-block;filter:brightness(0);opacity:.3}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sil{filter:brightness(0) invert(1);opacity:.28}}
-:root[data-theme="dark"] .sil{filter:brightness(0) invert(1);opacity:.28}
+.sil{display:inline-block;line-height:0;filter:brightness(0);opacity:.4}
+.sil svg{display:block}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sil{filter:brightness(0) invert(1);opacity:.34}}
+:root[data-theme="dark"] .sil{filter:brightness(0) invert(1);opacity:.34}
 .facts{list-style:none;margin:6px 0 0;padding:0;font-size:14px}
 .facts li{margin:0 0 5px}
 .facts b{display:block;font-size:12px;color:var(--ink2)}
@@ -331,14 +332,24 @@ var MUSH=[
 ];
 var QN=7,BN=15;
 (function(){
- var ix=[[0,1,2],[1,2,0],[3,0,1],[2,1,0],[4,0,1],[2,1,3],[0,1,3],[0,3,1],[2,1,0],[3,2,0],[4,0,1]];
- var K=["Chanty","Agatha","Leo","Morrie","Ollie","Shii","Noki","Tully","Amy","Clucky","Fern"];
- var SE=["Summer to fall","Late summer to fall","Late summer to fall","Spring","Fall to spring, often after a chill","Spring and fall","Late fall to early spring","Year-round","Late summer to fall","Late spring through fall","Late spring to fall"];
- var WH=["Mossy conifer and hardwood forests across North America and Europe","Under birch, pine, and spruce in cool forests around the world","On living or dead hardwoods like oak and beech across the Northern Hemisphere","Woodlands, old orchards, river bottoms, and burn sites","On dead or dying hardwood trees in forests worldwide","Native to East Asia on dead hardwood logs; grown on logs worldwide","On dead hardwood like elm in North America, Europe, and East Asia","On fallen hardwood logs and stumps, nearly everywhere","Damp woodland leaf litter in North America and Europe","On oaks and other hardwoods in North America and Europe","Lawns, meadows, and pastures across temperate regions"];
- ix.forEach(function(a,i){var m=MUSH[i];m.c=a.map(function(k){return m.c[k]});m.k=K[i];m.s=SE[i];m.w=WH[i]});
+ var O=MUSH;
+ function pick(o,ix,k,s,w){return{n:o.n,l:o.l,f:o.f,c:ix.map(function(j){return o.c[j]}),k:k,s:s,w:w}}
+ MUSH=[
+  pick(O[0],[0,1,2],"Chanty","Summer to fall","Mossy conifer and hardwood forests across North America and Europe"),
+  pick(O[3],[2,1,0],"Morrie","Spring","Woodlands, old orchards, river bottoms, and burn sites"),
+  pick(O[4],[4,0,1],"Ollie","Fall to spring, often after a chill","On dead or dying hardwood trees in forests worldwide"),
+  pick(O[7],[0,3,1],"Tully","Year-round","On fallen hardwood logs and stumps, nearly everywhere"),
+  {n:"Death Trumpet",l:"Craterellus cornucopioides",f:"Despite the spooky name, this dark, horn-shaped mushroom is a prized edible. Its color camouflages it in leaf litter, so foragers say you find it by accident.",c:["I’m shaped like a hollow horn.","I’m dark gray to black, so I hide in fallen leaves.","My spooky name hides a delicious secret."],k:"Trumpet",s:"Summer to fall",w:"Leaf litter and moss under oak and beech across North America, Europe, and Asia"},
+  pick(O[9],[3,2,0],"Clucky","Late spring through fall","On oaks and other hardwoods in North America and Europe"),
+  pick(O[1],[1,2,0],"Agatha","Late summer to fall","Under birch, pine, and spruce in cool forests around the world"),
+  {n:"Devil’s Fingers",l:"Clathrus archeri",f:"It bursts out of a pale, egg-like sac as red, tentacle-like arms, and it smells like rotting meat to attract the flies that spread its spores.",c:["I burst out of a pale, egg-like sac.","I have red, tentacle-like arms.","I smell awful on purpose to attract flies."],k:"Finn",s:"Late summer to fall",w:"Mulch, lawns, and woodland edges; native to Australia, now found in Europe and parts of North America"},
+  {n:"Bleeding Tooth",l:"Hydnellum peckii",f:"Young ones ooze bright red droplets that look like blood. It is a tooth fungus with spines instead of gills, and far too bitter to eat.",c:["I ooze bright red droplets, like a scraped knee.","Under my cap I have tiny spines instead of gills.","I look like strawberries and cream, but I’m far too bitter to eat."],k:"Ruby",s:"Late summer to fall",w:"Mossy conifer forests across the Northern Hemisphere, including the Pacific Northwest"},
+  {n:"Veiled Lady",l:"Phallus indusiatus",f:"Its lacy white skirt unfurls in a matter of hours. It smells strong to attract flies, yet in parts of Asia it is dried and added to soups.",c:["I wear a lacy white skirt of netting.","I grow my whole outfit in just a few hours.","In some countries I’m dried and added to soup."],k:"Lacey",s:"Warm, rainy months",w:"Tropical and subtropical woods, gardens, and bamboo groves"},
+  {n:"Snow Plant",l:"Sarcodes sanguinea",f:"Not a true mushroom or even a fungus: it is a bright red plant with no green at all, and it gets its food by tapping the fungi that live around conifer roots. It pushes up through the melting snow in spring.",c:["I pop up through the melting snow.","I’m bright red from top to bottom, with no green at all.","I’m not really a mushroom: I borrow food from the fungi around pine roots."],k:"Ember",s:"Spring, right after the snow melts",w:"Mountain conifer forests of the western U.S., especially the Sierra Nevada and Cascades"}
+ ];
 })();
 function sv(inner,size,cls){return '<svg viewBox="0 0 100 100" width="'+size+'" height="'+size+'" class="'+(cls||"")+'" aria-hidden="true" focusable="false">'+inner+'</svg>'}
-var FP=[[50,44,.85,"#f9d27a"],[50,75,1,null],[50,46,1.05,null],[50,78,.8,null],[50,46,.9,"#e6e0ef"],[50,40,1,"#e6cfa6"],[50,42,.85,null],[50,62,.95,"#efe2c2"],[50,38,.9,"#d9c2ea"],[50,73,.7,"#fbdc8a"]];
+var FP=[[50,44,.85,"#f9d27a"],[50,78,.8,null],[50,46,.9,"#e6e0ef"],[50,62,.95,"#efe2c2"],[53,52,.62,"#9a9aa6"],[50,73,.7,"#fbdc8a"],[50,75,1,null],[50,82,.72,null],[50,80,.85,null],[50,68,.9,"#fffdf6"],[50,58,.6,"#f6a9a0"]];
 function faceG(face,cx,cy,s,patch){
  var ch='<ellipse cx="38" cy="77" rx="4" ry="2.6" fill="#f0a3ad" opacity=".75"/><ellipse cx="62" cy="77" rx="4" ry="2.6" fill="#f0a3ad" opacity=".75"/>',eyes,mouth,extra="";
  if(face==="happy"||face==="cheer"){eyes='<path d="M40 71 Q43.5 66 47 71M53 71 Q56.5 66 60 71" fill="none" stroke="#4b3a34" stroke-width="2.4" stroke-linecap="round"/>';mouth='<path d="M45 77 Q50 87 55 77 Z" fill="#c9576a" stroke="#4b3a34" stroke-width="1.6" stroke-linejoin="round"/>'}
@@ -348,11 +359,8 @@ function faceG(face,cx,cy,s,patch){
  return(patch?'<ellipse cx="'+cx+'" cy="'+cy+'" rx="'+(17*s).toFixed(1)+'" ry="'+(14*s).toFixed(1)+'" fill="'+patch+'" opacity=".9"/>':'')+'<g transform="translate('+cx+' '+cy+') scale('+s+') translate(-50 -75)">'+ch+eyes+mouth+'</g>'+extra;
 }
 function mascotSvg(i,face,size,cls){
- if(i===10)return mush("#d9b98c",size,face,cls);
- var inner=ART[i]();
- if(i===6)inner+='<path d="M44 52 Q42 90 46 94 L54 94 Q58 90 56 52Z" fill="#f6efdc" stroke="#c9b57f" stroke-width="1.6"/><circle cx="50" cy="40" r="20" fill="#f0dfb2" stroke="#c9b57f" stroke-width="2"/>';
  var P=FP[i];
- return sv(inner+faceG(face,P[0],P[1],P[2],P[3]),size,cls);
+ return sv(ART[i]()+faceG(face,P[0],P[1],P[2],P[3]),size,cls);
 }
 function isFound(i){return i===10?!!(S.boss&&S.boss.cleared):cleared(i)}
 function mascotIdx(){var m=S&&S.mascot;return(typeof m==="number"&&m>=0&&m<11&&isFound(m))?m:-1}
@@ -372,18 +380,27 @@ function(){return '<path d="M44 50 Q42 90 46 94 L56 94 Q60 90 57 50Z" fill="#c9a
 function(){return '<rect x="38" y="86" width="24" height="8" rx="3" fill="#8a6b4a"/>'+tier(50,86,40,24)+tier(56,64,34,20)+tier(46,44,28,17)},
 function(){var s='<ellipse cx="50" cy="72" rx="46" ry="22" fill="#b6d39a"/><ellipse cx="50" cy="72" rx="38" ry="16" fill="none" stroke="#8fb576" stroke-width="2" stroke-dasharray="3 4"/>',pts=[];for(var k=0;k<9;k++){var a=k*Math.PI*2/9;pts.push([50+32*Math.cos(a),72+13*Math.sin(a)])}pts.sort(function(a,b){return a[1]-b[1]});pts.forEach(function(p){s+='<rect x="'+(p[0]-1.3).toFixed(1)+'" y="'+(p[1]-8).toFixed(1)+'" width="2.6" height="8" rx="1.2" fill="#f3e6c8"/><ellipse cx="'+p[0].toFixed(1)+'" cy="'+(p[1]-9).toFixed(1)+'" rx="7" ry="4.6" fill="#d9b98c" stroke="#a5815a" stroke-width="1.4"/>'});return s+'<path d="M50 14 l2.4 6 6 2.4 -6 2.4 -2.4 6 -2.4 -6 -6 -2.4 6 -2.4z" fill="#f2d57e"/>'}
 ];
+function trumpet(cx,top,w,hh){return '<path d="M'+(cx-w)+' '+top+' Q'+(cx-w*.6)+' '+(top-5)+' '+(cx-w*.3)+' '+(top+2)+' Q'+cx+' '+(top-3)+' '+(cx+w*.3)+' '+(top+2)+' Q'+(cx+w*.6)+' '+(top-5)+' '+(cx+w)+' '+top+' Q'+(cx+w*.55)+' '+(top+hh*.5)+' '+(cx+w*.22)+' '+(top+hh)+' L'+(cx-w*.22)+' '+(top+hh)+' Q'+(cx-w*.55)+' '+(top+hh*.5)+' '+(cx-w)+' '+top+'Z" fill="#4a4a54" stroke="#22222a" stroke-width="2" stroke-linejoin="round"/><ellipse cx="'+cx+'" cy="'+(top+1)+'" rx="'+(w*.72).toFixed(1)+'" ry="3.6" fill="#17171d"/>'}
+function A_trumpets(){return '<ellipse cx="50" cy="93" rx="42" ry="6" fill="#7a5a3a"/><path d="M12 92 q6 -8 14 -2 q-4 8 -14 2Z M70 93 q8 -8 16 -2 q-6 8 -16 2Z" fill="#a7743a"/>'+trumpet(28,40,15,52)+trumpet(76,46,14,46)+trumpet(53,16,19,76)}
+function A_devil(){var arms=["M42 68 Q22 52 12 26","M46 66 Q34 44 30 14","M50 65 Q50 40 52 8","M54 66 Q66 44 72 16","M58 68 Q78 52 88 30"],s='';arms.forEach(function(d){s+='<path d="'+d+'" fill="none" stroke="#d6342c" stroke-width="7" stroke-linecap="round"/><path d="'+d+'" fill="none" stroke="#f08a80" stroke-width="2" stroke-linecap="round" opacity=".55" transform="translate(-1 0)"/>'});return s+'<path d="M20 94 Q18 64 50 62 Q82 64 80 94Z" fill="#f4ecdf" stroke="#c9b99b" stroke-width="2"/>'}
+function A_tooth(){return '<path d="M36 58 Q34 92 40 94 L62 94 Q68 92 66 58Z" fill="#d9c2ae" stroke="#a78f78" stroke-width="2"/><path d="M12 60 Q8 30 34 24 Q50 18 68 24 Q92 30 88 60 Q50 70 12 60Z" fill="#f3e4d6" stroke="#b79d86" stroke-width="2" stroke-linejoin="round"/><path d="M22 42 q3 -12 16 -9 q9 3 5 12 q-8 6 -21 -3Z M50 32 q10 -6 18 2 q4 9 -6 11 q-12 -1 -12 -13Z M70 46 q8 -2 10 6 q-4 6 -12 2Z" fill="#c8202a"/><path d="M30 61 q-3 9 0 14 q4 -5 0 -14Z M48 65 q-3 9 0 14 q4 -5 0 -14Z M70 62 q-3 8 0 12 q3 -4 0 -12Z" fill="#c8202a"/>'}
+function A_veiled(){return '<path d="M50 34 L12 92 Q18.3 100 24.7 92 Q31 100 37.3 92 Q43.7 100 50 92 Q56.3 100 62.7 92 Q69 100 75.3 92 Q81.7 100 88 92Z" fill="#fbf7ee" stroke="#cfc6ae" stroke-width="2" stroke-linejoin="round"/><path d="M50 36 L28 94 M50 36 L40 94 M50 36 L50 94 M50 36 L60 94 M50 36 L72 94 M40 52 L60 52 M34 64 L66 64 M28 76 L72 76 M22 86 L78 86" stroke="#cfc6ae" stroke-width="1.3" fill="none"/><rect x="46" y="22" width="8" height="18" fill="#fbf7ee" stroke="#cfc6ae" stroke-width="1.6"/><path d="M39 26 Q37 3 50 3 Q63 3 61 26Z" fill="#7b7a3c" stroke="#4d4d24" stroke-width="2"/><path d="M44 12 l3 3 M52 9 l3 3 M48 19 l3 3 M56 17 l2 3" stroke="#a3a25a" stroke-width="1.6" stroke-linecap="round"/>'}
+function spike(cx,top,w,base){var y=base-8,s='<path d="M'+(cx-w)+' '+base+' Q'+(cx-w*.75)+' '+((top+base)/2)+' '+(cx-w*.3)+' '+(top+8)+' Q'+cx+' '+(top-6)+' '+(cx+w*.3)+' '+(top+8)+' Q'+(cx+w*.75)+' '+((top+base)/2)+' '+(cx+w)+' '+base+'Z" fill="#d1362f" stroke="#8f1f1a" stroke-width="2" stroke-linejoin="round"/>';for(;y>top+14;y-=9)s+='<path d="M'+(cx-w*.55)+' '+y+' q'+(w*.55)+' 6 '+(w*1.1)+' 0" fill="none" stroke="#8f1f1a" stroke-width="1.5" stroke-linecap="round" opacity=".7"/>';return s}
+function A_snowplant(){return '<ellipse cx="50" cy="94" rx="44" ry="8" fill="#eef4f8" stroke="#c7d6e2" stroke-width="1.5"/><path d="M8 88 l6 -8 l4 8Z M84 90 l5 -9 l5 9Z" fill="#3f6b45"/>'+spike(24,44,9,92)+spike(78,50,8,92)+spike(50,10,14,92)}
+ART=[ART[0],ART[3],ART[4],ART[7],A_trumpets,ART[9],ART[1],A_devil,A_tooth,A_veiled,A_snowplant];
 function shroom(i,size){return sv(ART[i](),size)}
 function mystery(size){return sv('<path d="M35 54 Q32 90 40 94 L60 94 Q68 90 65 54Z" style="fill:var(--ink2)" opacity=".26"/><path d="M8 58 Q8 12 50 12 Q92 12 92 58 Q50 68 8 58Z" style="fill:var(--ink2)" opacity=".32"/><text x="50" y="50" text-anchor="middle" font-size="36" font-weight="600" font-family="Fraunces,Georgia,serif" style="fill:var(--card)">?</text>',size)}
-function badge(i,size){return cleared(i)?shroom(i,size):mystery(size)}
+function sil(i,size){return '<span class="sil">'+shroom(i,size)+'</span>'}
+function badge(i,size){return cleared(i)?shroom(i,size):sil(i,size)}
 function foundCount(){return clearedCount()+(S.boss&&S.boss.cleared?1:0)}
 function clueSlot(){if(!G||G.kind==="review"||G.picked===null||(G.round||1)>1)return 0;var iv=G.kind==="boss"?5:2,a=G.i+1;return(a%iv===0&&a/iv<=3)?a/iv:0}
-function clueCard(){var sl=clueSlot();if(!sl)return "";var m=MUSH[G.kind==="boss"?10:G.i0],old="";for(var k=0;k<sl-1;k++)old+='<div class="old">'+(k+1)+'. '+esc(m.c[k])+'</div>';return '<div class="clue"><div class="cm wig">'+mystery(44)+'</div><div><b>Mystery clue '+sl+' of 3</b><div>“'+esc(m.c[sl-1])+'”</div>'+(old?'<div style="margin-top:6px">'+old+'</div>':'')+'</div></div>'}
+function clueCard(){var sl=clueSlot();if(!sl)return "";var m=MUSH[G.kind==="boss"?10:G.i0],old="";for(var k=0;k<sl-1;k++)old+='<div class="old">'+(k+1)+'. '+esc(m.c[k])+'</div>';return '<div class="clue"><div class="cm wig">'+sil(G.kind==="boss"?10:G.i0,44)+'</div><div><b>Mystery clue '+sl+' of 3</b><div>“'+esc(m.c[sl-1])+'”</div>'+(old?'<div style="margin-top:6px">'+old+'</div>':'')+'</div></div>'}
 function bigBurst(top){var P=[[-90,-50],[-55,-84],[-10,-96],[40,-86],[82,-56],[100,-10],[-100,-8],[64,30],[-64,30],[0,-60]],C=["var(--rose)","var(--butter)","var(--sage)"],Gl=["✿","❀","✦","❁"],s='<span class="burst" style="top:'+top+'px" aria-hidden="true">';P.forEach(function(p,k){s+='<i style="--x:'+p[0]+'px;--y:'+p[1]+'px;color:'+C[k%3]+';animation-delay:'+(k*40)+'ms">'+Gl[k%4]+'</i>'});return s+'</span>'}
 function mushCard(){
  if(G.kind==="review")return "";
  var mi=G.kind==="boss"?10:G.i0,r=G.res,m=MUSH[mi],key=G.kind==="boss"?"boss":String(G.id),seen=Math.min(S.seen[key]||0,3);
- if(!r.pass)return '<div class="card center" style="margin-top:12px"><div class="wig">'+mystery(72)+'</div><p style="margin:8px 0 2px"><b>Still a mystery</b></p><p style="color:var(--ink2);font-size:14px;margin:0">'+seen+' of 3 clues found. Clear this trail to reveal the mushroom.</p></div>';
- if(r.firstClear&&!G.revealed)return '<div class="card center" style="margin-top:12px"><div class="wig">'+mystery(84)+'</div><p style="margin:8px 0 10px"><b>Something new is in your basket!</b></p><button class="btn" data-a="reveal">Reveal my mushroom</button></div>';
+ if(!r.pass)return '<div class="card center" style="margin-top:12px"><div class="wig">'+sil(mi,72)+'</div><p style="margin:8px 0 2px"><b>Still a mystery</b></p><p style="color:var(--ink2);font-size:14px;margin:0">'+seen+' of 3 clues found. Clear this trail to reveal the mushroom.</p></div>';
+ if(r.firstClear&&!G.revealed)return '<div class="card center" style="margin-top:12px"><div class="wig">'+sil(mi,84)+'</div><p style="margin:8px 0 10px"><b>Something new is in your basket!</b></p><button class="btn" data-a="reveal">Reveal my mushroom</button></div>';
  var anim=r.firstClear&&!G.animDone;
  var h='<div class="card center" style="margin-top:12px;position:relative">'+(anim?bigBurst(70):'');
  h+='<div class="'+(anim?'revealart':'')+'">'+shroom(mi,96)+'</div><h2 style="font-size:20px;margin-top:6px">'+esc(m.n)+'</h2><p style="color:var(--ink2);font-style:italic;margin:0 0 8px;font-size:13px">'+esc(m.l)+'</p><p style="font-size:14.5px;margin:0 0 8px">'+esc(m.f)+'</p><span class="tag">'+(r.firstClear?'New in your basket':'In your basket')+'</span>';
@@ -391,13 +408,13 @@ function mushCard(){
  return h;
 }
 function guide(){
- var h='<div class="top"><div class="flora" aria-hidden="true">✿ ❀ ✿</div><h1>Field guide</h1><p>'+foundCount()+' of 11 mushrooms found</p></div><div class="row" style="margin:8px 0 14px"><button class="gbtn" data-a="home">Back to the trail</button></div>';
+ var h='<div class="top"><div class="flora" aria-hidden="true">✿ ❀ ✿</div><h1>Field guide</h1><p>'+foundCount()+' of 11 mushrooms found</p><p style="font-size:12.5px">For fun only. Never eat a wild mushroom without an expert ID.</p></div><div class="row" style="margin:8px 0 14px"><button class="gbtn" data-a="home">Back to the trail</button></div>';
  h+='<div class="gcard'+(S.mascot===-1?' hl':'')+'"><div class="ga">'+mush(PIP,64,"idle")+'</div><div><h3>Pippin</h3><small>Your trail guide</small>'+(S.mascot===-1?'<span class="tag">Your mascot</span>':'<button class="gbtn" data-a="mascot" data-i="-1">Choose Pippin</button>')+'</div></div>';
  for(var i=0;i<11;i++){
   var m=MUSH[i],boss=i===10,f=boss?S.boss.cleared:cleared(i),key=boss?"boss":String(LEVELS[i].id),seen=S.seen[key]||0;
-  h+='<div class="gcard'+(guideFocus===i?' hl':'')+'" id="gd'+i+'"><div class="ga">'+(f?shroom(i,64):mystery(64))+'</div><div>';
+  h+='<div class="gcard'+(guideFocus===i?' hl':'')+'" id="gd'+i+'"><div class="ga">'+(f?shroom(i,64):sil(i,64))+'</div><div>';
   if(f)h+='<h3>'+esc(m.n)+'</h3><small>'+esc(m.l)+'</small><p>'+esc(m.f)+'</p><p style="margin-top:4px;color:var(--ink2);font-size:13px">'+esc(m.s)+' · '+esc(m.w)+'</p><div style="margin-top:8px">'+(S.mascot===i?'<span class="tag">Your mascot</span>':'<button class="gbtn" data-a="mascot" data-i="'+i+'">Make '+esc(m.k)+' my mascot</button>')+'</div>';
-  else{h+='<h3>Mystery mushroom</h3><small>'+(boss?'The Fairy Ring':esc(LEVELS[i].name))+'</small>';if(seen){h+='<ol>';for(var k=0;k<Math.min(seen,3);k++)h+='<li>'+esc(m.c[k])+'</li>';h+='</ol>'}else h+='<p>No clues yet. Play this trail and '+esc(mn())+' will whisper some.</p>'}
+  else{h+='<h3>Mystery mushroom</h3><small>'+(boss?'The Snow Line':esc(LEVELS[i].name))+'</small>';if(seen){h+='<ol>';for(var k=0;k<Math.min(seen,3);k++)h+='<li>'+esc(m.c[k])+'</li>';h+='</ol>'}else h+='<p>No clues yet. Play this trail and '+esc(mn())+' will whisper some.</p>'}
   h+='</div></div>';
  }
  return h;
@@ -451,13 +468,13 @@ function home(){
  var cl=clearedCount(),n=LEVELS.length,line;
  if(cl===0)line="Hello, friend! I'm "+mn()+". Shall we go foraging for knowledge today?";
  else if(cl===n&&S.boss.cleared)line="You did it! The whole forest is yours. Pop back any time for a review.";
- else if(cl===n)line="Every trail is cleared. Only the Fairy Ring is left!";
+ else if(cl===n)line="Every trail is cleared. Only the Snow Line is left!";
  else line="Welcome back! "+cl+" of "+n+" trails cleared. Onward!";
  var h='<div class="top"><div class="flora" aria-hidden="true">✿ ❀ ✿ ❁ ✿</div><h1>'+esc(mn())+'’s Foraging Trail</h1><p>EPPP Section 7: Social and Multicultural Psychology</p></div>';
  h+='<div class="hero"><div class="mp">'+pip(cl===n?"cheer":"idle")+'</div><div class="bubble"><p class="q" style="font-size:16px;font-weight:600">'+line+'</p></div></div>';
  h+='<div class="stats"><div class="stat"><b>'+curStreak()+'</b><span>day streak</span></div><div class="stat"><b>'+cl+'/'+n+'</b><span>trails cleared</span></div><div class="stat"><b>'+S.total+'</b><span>right answers</span></div></div>';
  h+='<div class="basket"><h3>Your foraging basket · '+foundCount()+' of 11 found</h3><div class="shelf">';
- for(var i=0;i<11;i++){var got=i===10?S.boss.cleared:cleared(i);h+='<button data-a="guide" data-i="'+i+'" aria-label="'+(got?esc(MUSH[i].n):'Mystery mushroom '+(i+1))+'">'+(got?shroom(i,34):mystery(34))+'</button>'}
+ for(var i=0;i<11;i++){var got=i===10?S.boss.cleared:cleared(i);h+='<button data-a="guide" data-i="'+i+'" aria-label="'+(got?esc(MUSH[i].n):'Mystery mushroom '+(i+1))+'">'+(got?shroom(i,34):sil(i,34))+'</button>'}
  h+='</div><div style="font-size:12.5px;color:var(--ink2);margin-top:6px">Tap a mushroom to open your field guide.</div></div>';
  h+='<h2 class="sec">The trail</h2><div class="note" id="note" role="status">'+esc(note)+'</div>';
  for(var j=0;j<n;j++){
@@ -465,7 +482,7 @@ function home(){
   h+='<button class="lvl'+(j%2?' r':'')+(un?'':' lock')+(st.cleared?' done':'')+'" data-a="lv" data-i="'+j+'"><span class="bdg">'+badge(j,44)+'</span><span class="lt"><b>'+(j+1)+'. '+esc(L.name)+'</b><small>'+esc(L.sub)+'</small></span><span class="stt">'+(st.cleared?'✓ '+st.best+'%':(un?(st.best?st.best+'%':'Go'):'Locked'))+'</span></button>';
  }
  var allDone=cl===n,bs=S.boss;
- h+='<button class="lvl boss'+(allDone?'':' lock')+(bs.cleared?' done':'')+'" data-a="boss"><span class="bdg">'+(bs.cleared?shroom(10,44):mystery(44))+'</span><span class="lt"><b>The Fairy Ring</b><small>Final boss: 30 mixed questions</small></span><span class="stt">'+(bs.cleared?'✓ '+bs.best+'%':(allDone?'Enter':'Locked'))+'</span></button>';
+ h+='<button class="lvl boss'+(allDone?'':' lock')+(bs.cleared?' done':'')+'" data-a="boss"><span class="bdg">'+(bs.cleared?shroom(10,44):sil(10,44))+'</span><span class="lt"><b>The Snow Line</b><small>Final boss: 15 mixed questions</small></span><span class="stt">'+(bs.cleared?'✓ '+bs.best+'%':(allDone?'Enter':'Locked'))+'</span></button>';
  if(cl>0)h+='<h2 class="sec">Pop quiz</h2><button class="lvl boss" data-a="review"><span class="bdg">'+mush("#f0a94b",44,"happy")+'</span><span class="lt"><b>'+esc(mn())+'’s pop quiz</b><small>5 quick questions from cleared trails</small></span><span class="stt">Go</span></button>';
  h+='<div class="foot">Progress saves in this browser on this device.<br><button class="link" data-a="reset">'+(resetArmed?'Tap again to erase all progress':'Start over')+'</button></div>';
  return h;
@@ -476,7 +493,7 @@ function intro(){
  var st=isBoss?S.boss:(S.lv[L.id]||{});
  var tot=isBoss?BN:QN,need=Math.ceil(tot*0.8),iv=isBoss?5:2;
  var mi=isBoss?10:cur.i,mc=isBoss?S.boss.cleared:cleared(cur.i),m=MUSH[mi];
- var h='<div class="top"><h1>'+(isBoss?'The Fairy Ring':(cur.i+1)+'. '+esc(L.name))+'</h1><p>'+(isBoss?'Final boss':esc(L.sub))+'</p></div>';
+ var h='<div class="top"><h1>'+(isBoss?'The Snow Line':(cur.i+1)+'. '+esc(L.name))+'</h1><p>'+(isBoss?'Final boss':esc(L.sub))+'</p></div>';
  h+='<div class="hero"><div class="mp">'+pip("idle")+'</div><div class="bubble"><p class="q" style="font-size:16px">'+(isBoss?'Fifteen questions from every trail. Get '+need+' right and the whole forest cheers for you!':'This trail has '+tot+' questions. Get '+need+' right to clear it. Need a nudge? I have a hint for every question.')+'</p></div></div>';
  h+='<div class="card mcard"><div class="msil">'+(mc?shroom(mi,88):'<span class="sil">'+shroom(mi,88)+'</span>')+'</div><div><h3 style="font-size:17px">'+(mc?esc(m.n):'A mystery mushroom')+'</h3><ul class="facts"><li><b>Season</b>'+esc(m.s)+'</li><li><b>Where it grows</b>'+esc(m.w)+'</li></ul>'+(mc?'':'<p class="hype">Clear this trail to meet it. '+esc(mn())+' whispers a clue every '+iv+' questions.</p>')+'</div></div>';
  h+='<div class="card" style="margin-top:12px"><p><b>What’s in here</b></p><p style="color:var(--ink2);font-size:14.5px;margin:0">'+(isBoss?'Questions from all ten trails, shuffled together.':esc(L.t))+'</p>'+(st.best?'<p style="margin:10px 0 0"><span class="tag">Best: '+st.best+'%</span></p>':'')+'</div>';
@@ -524,7 +541,7 @@ function result(){
  var r=G.res,isRev=G.kind==="review",key=G.kind==="boss"?"boss":"l"+G.id;
  var face=isRev?"happy":(r.pass?"cheer":"oops"),msg,title;
  if(isRev){title="Nice practice!";msg="Pop quizzes keep old trails fresh. Come back any time."}
- else if(r.pass){title=G.kind==="boss"?"You cleared the Fairy Ring!":"Trail cleared!";msg=r.firstClear?"A new mushroom for your basket!":"Another lovely run."}
+ else if(r.pass){title=G.kind==="boss"?"You cleared the Snow Line!":"Trail cleared!";msg=r.firstClear?"A new mushroom for your basket!":"Another lovely run."}
  else{title="So close!";var need=Math.ceil(r.tot*0.8);msg="You need "+need+" of "+r.tot+" to clear it. Retake just the "+G.missed.length+" you missed, and the answers you already got right still count."}
  var h='<div class="top"><div class="flora" aria-hidden="true">✿ ❀ ✿</div><h1>'+title+'</h1></div>';
  h+='<div class="hero" style="justify-content:center"><div class="mp" style="width:120px">'+pip(face,120)+'</div></div>';
@@ -547,7 +564,7 @@ function render(){
 function startQuiz(kind,i){
  var src,label,id=null;
  if(kind==="level"){var L=LEVELS[i];id=L.id;src=shuf(L.q).slice(0,QN);label=L.name}
- else if(kind==="boss"){src=shuf(LEVELS.reduce(function(a,L){return a.concat(L.q)},[])).slice(0,BN);label="The Fairy Ring"}
+ else if(kind==="boss"){src=shuf(LEVELS.reduce(function(a,L){return a.concat(L.q)},[])).slice(0,BN);label="The Snow Line"}
  else{var pool=[];LEVELS.forEach(function(L,k){if(cleared(k))pool=pool.concat(L.q)});src=shuf(pool).slice(0,5);label="Pop quiz"}
  G={kind:kind,i0:i,id:id,label:label,qs:src.map(prep),i:0,correct:0,hints:0,picked:null,hintOn:false,next:null,revealed:false,total:src.length,carry:0,round:1,missed:[]};
  setView("quiz");
@@ -573,7 +590,7 @@ document.addEventListener("click",function(e){
   if(!unlocked(i)){note="Clear “"+LEVELS[i-1].name+"” first to open this trail.";render();return}
   cur={kind:"level",i:i};setView("intro");
  }else if(a==="boss"){
-  if(clearedCount()<LEVELS.length){note="Clear all ten trails to enter the Fairy Ring.";render();return}
+  if(clearedCount()<LEVELS.length){note="Clear all ten trails to enter the Snow Line.";render();return}
   cur={kind:"boss"};setView("intro");
  }else if(a==="review"){startQuiz("review",0)}
  else if(a==="start"){startQuiz(cur.kind,cur.i)}
